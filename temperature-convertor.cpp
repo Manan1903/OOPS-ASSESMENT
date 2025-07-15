@@ -1,32 +1,37 @@
-// Temperature Converter using OOP in C++
+// Simple Interest Calculator using OOP in C++
 #include <iostream>
 using namespace std;
 
-class TemperatureConverter {
+class SimpleInterestCalculator {
 private:
-    float celsius;
+    float principal;
+    float rate;
+    float time;
 
 public:
-    void inputCelsius() {
-        cout << "Enter temperature in Celsius: ";
-        cin >> celsius;
+    void inputValues() {
+        cout << "Enter principal amount: ";
+        cin >> principal;
+        cout << "Enter rate of interest: ";
+        cin >> rate;
+        cout << "Enter time (in years): ";
+        cin >> time;
     }
 
-    float convertToFahrenheit() {
-        return (celsius * 9 / 5) + 32;
+    float calculateSI() {
+        return (principal * rate * time) / 100;
     }
 
-    float convertToKelvin() {
-        return celsius + 273.15;
+    void displaySI() {
+        float si = calculateSI();
+        cout << "Simple Interest: " << si << endl;
     }
 };
 
 int main() {
-    TemperatureConverter temp;
-    temp.inputCelsius();
-
-    cout << "Temperature in Fahrenheit: " << temp.convertToFahrenheit() << endl;
-    cout << "Temperature in Kelvin: " << temp.convertToKelvin() << endl;
+    SimpleInterestCalculator calc;
+    calc.inputValues();
+    calc.displaySI();
 
     return 0;
 }
