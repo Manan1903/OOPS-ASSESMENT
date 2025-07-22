@@ -4,32 +4,87 @@
 // The withdraw function should subtract the amount from totalBankBalance if sufficient funds are available.
 // The displayBalance function should print the current totalBankBalance.
 
-#include<iostream>
+#include <iostream>
 using namespace std;
 
-int totalBankBalance = 0;
+// Global variable
+double totalBankBalance; // Will be set by user
 
-void deposit(int amount) {
+// Deposit function
+void depositMoney(double amount, double &accountBalance) {
+    static int depositCount = 0;
+    accountBalance += amount;
     totalBankBalance += amount;
+    depositCount++;
+    cout << "Deposited " << amount << " (Deposit " << depositCount << ")\n";
 }
 
-void withdraw(int amount) {
-    if (amount <= totalBankBalance) {
+// Withdraw function
+void withdrawMoney(double amount, double &accountBalance) {
+    static int withdrawCount = 0;
+    if (amount <= accountBalance) {
+        accountBalance -= amount;
         totalBankBalance -= amount;
+        withdrawCount++;
+        cout << "Withdrew " << amount << " (Withdrawal " << withdrawCount << ")\n";
     } else {
-        cout << "Insufficient funds!" << endl;
+        cout << "Not enough money in your account!\n";
     }
 }
 
-void displayBalance() {
+// Display balances
+void displayBalances(double accountBalance) {
+    cout << "\n--- Balances ---\n";
+    cout << "Your Account Balance: " << accountBalance << endl;
     cout << "Total Bank Balance: " << totalBankBalance << endl;
 }
 
 int main() {
-    deposit(1000);
-    displayBalance();
-    withdraw(500);
-    displayBalance();
-    withdraw(600);
+    double accountBalance;
+    double amount;
+    int choice;
+
+    // Input initial balances
+    cout << "Enter your initial account balance: ";
+    cin >> accountBalance;
+
+    cout << "Enter total initial bank balance: ";
+    cin >> totalBankBalance;
+
+    cout << "\nWelcome to the Bank System!\n";
+    displayBalances(accountBalance);
+
+    // Menu loop using if-else
+    while (true) {
+        cout << "\nMenu:\n";
+        cout << "1. Deposit Money\n";
+        cout << "2. Withdraw Money\n";
+        cout << "3. Show Balances\n";
+        cout << "4. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        if (choice == 1) {
+            cout << "Enter amount to deposit: ";
+            cin >> amount;
+            depositMoney(amount, accountBalance);
+        }
+        else if (choice == 2) {
+            cout << "Enter amount to withdraw: ";
+            cin >> amount;
+            withdrawMoney(amount, accountBalance);
+        }
+        else if (choice == 3) {
+            displayBalances(accountBalance);
+        }
+        else if (choice == 4) {
+            cout << "Thank you for using our banking system!\n";
+            break; // Exit the loop
+        }
+        else {
+            cout << "Invalid choice. Please try again.\n";
+        }
+    }
+
     return 0;
 }
