@@ -2,6 +2,7 @@
 //Uses while loop to analyze each character
 //Counts uppercase ,lowercase, digits, and special characters
 //Uses nested if statements to determine password strength
+//Display detailed Analysis of password strength
 #include <iostream>
 #include <string>
 using namespace std;
@@ -27,15 +28,22 @@ int main() {
     }
 
     // Determine password strength
-    if (password.length() < 8) {
-        cout << "Password is too short." << endl;
-    } else if (upperCount > 0 && lowerCount > 0 && digitCount > 0 && specialCount > 0) {
-        cout << "Password is strong." << endl;
-    } else if ((upperCount > 0 || lowerCount > 0) && digitCount > 0) {
-        cout << "Password is medium." << endl;
+    string strength;
+    if (upperCount > 0 && lowerCount > 0 && digitCount > 0 && specialCount > 0 && password.length() >= 8) {
+        strength = "Strong";
+    } else if ((upperCount > 0 || lowerCount > 0) && digitCount > 0 && password.length() >= 6) {
+        strength = "Medium";
     } else {
-        cout << "Password is weak." << endl;
+        strength = "Weak";
     }
+
+    // Display detailed analysis of password strength
+    cout << "Password Analysis:" << endl;
+    cout << "Uppercase letters: " << upperCount << endl;
+    cout << "Lowercase letters: " << lowerCount << endl;
+    cout << "Digits: " << digitCount << endl;
+    cout << "Special characters: " << specialCount << endl;
+    cout << "Password Strength: " << strength << endl;
 
     return 0;
 }
